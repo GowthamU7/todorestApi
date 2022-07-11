@@ -1,7 +1,10 @@
 var express = require("express")
 var port = process.env.PORT || 3000
 var app = express()
-app.use(express.json({type:"*/*"}))
+var cors=require("cors")
+var bdp=require("body-parser")
+app.use(cors())
+app.use(bdp.json())
 // app.use(express.urlencoded({extended:true}))
 require("../mongoose/connection")
 var modeltsk=require("../mongoose/model")
