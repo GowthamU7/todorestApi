@@ -12,6 +12,7 @@ app.post("/register",async(req,res)=>{
         await user.save()
         return res.json({"message":"Account has been created you can start adding your tasks"})
     }catch(e){
+        // console.log(e)
         return res.json({"error":"email-Id already exist try using different one!"})
     }
 })
