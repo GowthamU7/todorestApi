@@ -21,7 +21,7 @@ app.post("/login",async(req,res)=>{
     try{
         var user=await modeltsk.findOne({"email":req.body.email})
         if(user.password == req.body.password){
-            return res.json([user])
+            return res.send(user)
         }
         res.json({"message":"password doesn't match"})
     }catch(e){
