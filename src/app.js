@@ -2,10 +2,9 @@ var express = require("express")
 var port = process.env.PORT || 3000
 var app = express()
 var cors=require("cors")
-var bdp=require("body-parser")
 app.use(cors())
-app.use(bdp.json())
-// app.use(express.urlencoded({extended:true}))
+app.use(express.json({type: ['application/json', 'text/plain']}))
+app.use(express.urlencoded({extended:true}))
 require("../mongoose/connection")
 var modeltsk=require("../mongoose/model")
 
@@ -22,6 +21,7 @@ app.post("/register",async(req,res)=>{
 
 app.post("/login",async(req,res)=>{
     try{
+        console.log(req.body)
         var user=await modeltsk.findOne({"email":req.body.email})
         if(user.password == req.body.password){
             return res.json(user)
@@ -103,12 +103,12 @@ app.put("/deletetask/:id",async(req,res)=>{
             }
         }
         await modeltsk.findByIdAndUpdate({_id:req.params.id},{task:tsks})
-        res.json({"message":"tasks deleted"})
+        res.json(tsks)
     }catch(e){
         res.json({"error":"error deleteing the task"})
     }
 })
 
-app.listen(port,()=>{
-    console.log(`Listening on port ${port}.`)
+app.listen(5000,()=>{
+    console.log(`Listening on port ${5000}.`)
 })
